@@ -90,7 +90,7 @@ class Degree extends Component {
           <tr>
             <td>
               having fulfilled the requirements prescribed by the board of
-              governers and faculty
+              governors and faculty
             </td>
           </tr>
           <tr>
