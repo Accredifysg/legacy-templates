@@ -1722,6 +1722,7 @@ class TranscriptDegreeRev2021 {
 const Template = ({ certificate }) => {
   // JSON data source
   const jsonData = certificate;
+  issuedOnDt = jsonData.issuedOn;
   // translate
   if (jsonData.additionalData.transcriptGroup)
     translateTranscriptTermData(jsonData);
