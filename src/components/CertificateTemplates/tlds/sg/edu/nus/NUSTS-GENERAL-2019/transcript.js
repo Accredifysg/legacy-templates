@@ -55,11 +55,11 @@ let moduletoCourse;
 let modcreditstoUnits;
 let creditsTounits;
 
-CAPtoGPA = issuedOnDt >= termsChangeCutoffDate2023 ? `GPA` : `CAP`;
-CAPtoGPAlong = issuedOnDt >= termsChangeCutoffDate2023 ? `Grade Point Average` : `Cumulative Average Point`;
-moduletoCourse = issuedOnDt >= termsChangeCutoffDate2023 ? `Course` : `Module`;
-modcreditstoUnits = issuedOnDt >= termsChangeCutoffDate2023 ? `UNITS` : `MODULAR CREDITS`;
-creditsTounits = issuedOnDt >= termsChangeCutoffDate2023 ? `units` : `credits`;
+CAPtoGPA = {issuedOnDt} >= {termsChangeCutoffDate2023} ? `GPA` : `CAP`;
+CAPtoGPAlong = {issuedOnDt} >= {termsChangeCutoffDate2023} ? `Grade Point Average` : `Cumulative Average Point`;
+moduletoCourse = {issuedOnDt} >= {termsChangeCutoffDate2023} ? `Course` : `Module`;
+modcreditstoUnits = {issuedOnDt} >= {termsChangeCutoffDate2023} ? `UNITS` : `MODULAR CREDITS`;
+creditsTounits = {issuedOnDt} >= {termsChangeCutoffDate2023} ? `units` : `credits`;
 
 // Yale-NUS specific attributes and function
 let lastTermYaleNUS;
