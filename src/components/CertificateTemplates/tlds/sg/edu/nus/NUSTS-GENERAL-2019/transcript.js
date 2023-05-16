@@ -34,7 +34,7 @@ const revCutOffDate2021 = "2021-08-10";
 const dismissalRemarksCutOffDate = "2019-06-13";
 
 // cut off date for displaying new legend
-const termsChangeCutoffDate2023 = new Date("2023-08-01");
+const termsChangeCutoffDate2023 = new Date("2023-05-19");
 
 // flags to calssify transcript type
 let isUG;
