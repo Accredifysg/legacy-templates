@@ -296,7 +296,7 @@ const preprocHonours = (honours, degreeTitle) => {
   let text = honours.trim();
   // 'PASS' not to be printed
   if (text.toUpperCase() === "PASS") return "";
-  // add 'with' if there is 'DISTINCTION'
+  // add 'with' if 'DISTINCTION'
   if (text.toUpperCase().includes("DISTINCTION")) return `with ${text}`;
   // class of honours (old)
   text = text
