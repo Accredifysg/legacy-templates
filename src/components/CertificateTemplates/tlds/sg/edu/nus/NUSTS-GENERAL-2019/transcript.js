@@ -778,7 +778,9 @@ class TranscriptTermRemarks {
     const hasFinalGPA = this.termData.summary.some(data => {
       let found = false;
       if (data.specialGPA) {
-        found = data.specialGPA.some(sdata => sdata.type === "FGPA");
+        found = data.specialGPA.some(
+          sdata => sdata.type === "FGPA" || sdata.type === "FCAP"
+        );
         if (found) return true;
       }
       return false;
@@ -787,7 +789,7 @@ class TranscriptTermRemarks {
       this.cache.push(
         "ts-term-rem-fgpa",
         <td colSpan="4" className={cls("ts-termrem")}>
-          THE FINAL {CAPtoGPAlong} TAKES INTO ACCOUNT STUDENT&RSQUO;S
+          THE FINAL {CAPtoGPAlong} TAKES INTO ACCOUNT THE STUDENT&lsquo;S
           ACADEMIC PERFORMANCE AT THE PARTNER UNIVERSITY.
         </td>
       );
@@ -1633,8 +1635,8 @@ class TranscriptDegreeRev2021 {
       "ts-deg-cap",
       <td colSpan="4" style={{ paddingTop: "0", paddingBottom: "0" }}>
         <div colSpan="2" className={cls("ts-title ts-highlight confer-col0")}>
-          {data.GPAName.toUpperCase() === `FINAL ${CAPtoGPAlong}`
-            ? `FINAL ${CAPtoGPA}`
+          {data.GPAName.toUpperCase() === `FINAL CUMULATIVE AVERAGE POINT` // No need to shorten Final Grade Point
+            ? `FINAL CAP`
             : data.GPAName.toUpperCase()}
           :
         </div>
