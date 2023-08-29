@@ -1638,7 +1638,7 @@ class TranscriptDegreeRev2021 {
       "ts-deg-cap",
       <td colSpan="4" style={{ paddingTop: "0", paddingBottom: "0" }}>
         <div colSpan="2" className={cls("ts-title ts-highlight confer-col0")}>
-          {data.GPAName.toUpperCase() === `FINAL CUMULATIVE AVERAGE POINT` // No need to shorten Final Grade Point
+          {data.GPAName.toUpperCase() === `FINAL CUMULATIVE AVERAGE POINT`
             ? `FINAL CAP`
             : data.GPAName.toUpperCase()}
           :
