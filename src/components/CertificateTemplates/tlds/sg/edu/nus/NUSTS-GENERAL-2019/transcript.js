@@ -650,11 +650,14 @@ class TranscriptSummary {
   // render special GPA
   renderSpecialGPA(sumData) {
     sumData.specialGPA.forEach(data => {
-      const name = data.type === "FCAP" ? `${data.name}*` : `${data.name}`;
+      const name =
+        data.type === "FCAP" || data.type === "FGPA"
+          ? `${data.name}*`
+          : `${data.name}`;
       this.dataFeeder.push(
         "ts-term-sgpa",
         <td colSpan="4" className={cls("ts-termrem ts-highlight")}>
-          {`${name.toUpperCase()} :${data.GPA.toFixed(2)}`}
+          {`${name.toUpperCase()} : ${data.GPA.toFixed(2)}`}
         </td>
       );
     });
