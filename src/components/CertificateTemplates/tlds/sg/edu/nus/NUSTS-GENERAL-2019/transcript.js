@@ -1641,7 +1641,7 @@ class TranscriptDegreeRev2021 {
           {data.GPAName.toUpperCase() === "FINAL CUMULATIVE AVERAGE POINT"
             ? "FINAL CAP"
             : data.GPAName.toUpperCase()}
-          :
+          {":"}
         </div>
         <div colSpan="2" className={cls("ts-title confer-col1")}>
           {data.includeInGPA && !data.disableGPA
