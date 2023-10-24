@@ -15,6 +15,11 @@ import scss from "./degree.scss";
 // construct class names
 const cls = names => sassClassNames(names, scss);
 
+// cut off date for displaying "Past" due to closure of Yale-NUS college
+const YaleClosureCutoffDate2023 = "2025-06-01";
+
+let displayPast;
+
 class Degree extends Component {
   constructor(props) {
     super(props);
@@ -70,6 +75,11 @@ class Degree extends Component {
     const degreeData = this.dataSource.additionalData.degreeScroll[0];
     const words = dateToWords(degreeData.dateConferred);
     const dateConferred = `${words.dayMonth} in the year ${words.year}`;
+
+    // YALE closure cut-off
+    displayPast =
+      degreeData.dateConferred >= YaleClosureCutoffDate2023 ? `Past` : ``;
+
     const html = (
       <table className={cls("cert-content-table")}>
         <tbody>
@@ -164,7 +174,7 @@ class Degree extends Component {
               National University of Singapore
             </td>
             <td>
-              Chair, Governing Board
+              {displayPast} Chair, Governing Board
               <br />
               Yale-NUS College
             </td>
@@ -188,7 +198,7 @@ class Degree extends Component {
               National University Of Singapore
             </td>
             <td>
-              President
+              {displayPast} President
               <br />
               Yale-NUS College
             </td>
