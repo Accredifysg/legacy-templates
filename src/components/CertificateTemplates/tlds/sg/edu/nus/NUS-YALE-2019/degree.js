@@ -16,7 +16,7 @@ import scss from "./degree.scss";
 const cls = names => sassClassNames(names, scss);
 
 // cut off date for displaying "Past" due to closure of Yale-NUS college
-const YaleClosureCutoffDate2023 = "2025-06-01";
+const YaleClosureCutoffDate2023 = "2025-07-01";
 
 let displayPast;
 
