@@ -14,6 +14,7 @@ import {
   NUS_TS_LEGEND_DUKE,
   NUS_TS_LEGEND_YALE,
   NUS_TS_LEGEND_2023,
+  NUS_TS_LEGEND_2024,
   NUS_TS_LEGEND_DUKE_2023,
   NUS_TS_LEGEND_YALE_2023
 } from "../common";
@@ -35,6 +36,9 @@ const dismissalRemarksCutOffDate = "2019-06-13";
 
 // cut off date for displaying new legend
 const termsChangeCutoffDate2023 = "2023-08-01";
+
+// cut off date for updated UG/GD legend after new appointment
+const newAppointmentCutoffDate2024 = "2024-01-01";
 
 // flags to calssify transcript type
 let isUG;
@@ -1805,9 +1809,11 @@ const Template = ({ certificate }) => {
       : null;
   let legend;
   if (jsonData.issuedOn >= termsChangeCutoffDate2023) {
-        if (isDuke) legend = NUS_TS_LEGEND_DUKE_2023;
-        else if (isYaleNUS) legend = NUS_TS_LEGEND_YALE_2023;
-        else legend = NUS_TS_LEGEND_2023;
+      if (isDuke) legend = NUS_TS_LEGEND_DUKE_2023;
+      else if (isYaleNUS) legend = NUS_TS_LEGEND_YALE_2023;
+      else if (jsonData.issuedOn >= newAppointmentCutoffDate2024) {
+          legend = NUS_TS_LEGEND_2024;
+      } else { legend = NUS_TS_LEGEND_2023; }
     } else {
         if (isDuke) legend = NUS_TS_LEGEND_DUKE;
         else if (isYaleNUS) legend = NUS_TS_LEGEND_YALE;
