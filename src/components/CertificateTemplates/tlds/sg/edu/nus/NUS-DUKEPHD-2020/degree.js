@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
 import React from "react";
 import PropTypes from "prop-types";
@@ -6,14 +7,28 @@ import {
   Degree
 } from "../common/degreeScrollFramework";
 
+let dynamicText;
+
 // data feeder
 const getDataFeeder = dataSource => {
   // data feeder
   const dataFeeder = new DegreeScrollDataFeeder();
+  let degreeCode = dataSource.additionalData.degreeScroll[0].degreeCode;
   // logo is default
-  dataFeeder.studentName = dataSource.recipient.name.toUpperCase();
+  dataFeeder.studentName = dataSource.recipient.name.toUpperCase();  
+  if (
+    degreeCode === "D136000" ||
+    degreeCode === "M131000" ||
+    degreeCode === "M131100" ||
+    degreeCode === "M136000" ||
+    degreeCode === "G131000") 
+  {
+      dynamicText = "awarded the";
+  } else {
+      dynamicText = "conferred the degree of";
+    }
   dataFeeder.postNameText =
-    "having fulfilled the requirements prescribed\nby the University and the Duke-NUS Medical School,\nwas conferred the degree of";
+      `having fulfilled the requirements prescribed\nby the University and the Duke-NUS Medical School,\nwas ${dynamicText}`;
   dataFeeder.degreeCode = dataSource.additionalData.degreeScroll[0].degreeCode;
   dataFeeder.degreeTitle =
     dataSource.additionalData.degreeScroll[0].degreeTitle;
