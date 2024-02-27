@@ -16,12 +16,7 @@ const getDataFeeder = dataSource => {
   let degreeCode = dataSource.additionalData.degreeScroll[0].degreeCode;
   // logo is default
   dataFeeder.studentName = dataSource.recipient.name.toUpperCase();  
-  if (
-    degreeCode === "D136000" ||
-    degreeCode === "M131000" ||
-    degreeCode === "M131100" ||
-    degreeCode === "M136000" ||
-    degreeCode === "G131000") 
+  if (degreeCode === "G131000") 
   {
       dynamicText = "awarded the";
   } else {
