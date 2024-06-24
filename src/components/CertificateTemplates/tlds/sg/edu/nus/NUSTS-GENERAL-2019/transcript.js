@@ -47,6 +47,8 @@ let isDuke;
 let isMedDen;
 let isCDP;
 let isYaleNUS;
+let isYALENUSDegree = false;
+let isDegreeScroll;
 let isNG;
 let isOfficial;
 let isConferred;
@@ -1764,6 +1766,15 @@ const Template = ({ certificate }) => {
     return [false, null];
   })(jsonData);
   isNG = jsonData.additionalData.transcriptType.startsWith("NG");
+  // check if degree scroll exists  
+  isDegreeScroll = typeof jsonData !== "undefined" && jsonData.additionalData && typeof jsonData.additionalData.degreeScroll !== "undefined";
+  // check degree scroll if applicable   
+    if (isDegreeScroll) {
+        const firstDegree = jsonData.additionalData.degreeScroll[0];
+        if (firstDegree.type && firstDegree.type.includes("YALE")) {
+            isYALENUSDegree = true;
+        }
+    }
   // to be used for Yale-NUS last term remarks, only applicable when conferred
   lastTermYaleNUS = (transcriptData => {
     let lastTerm = null;
@@ -1810,16 +1821,16 @@ const Template = ({ certificate }) => {
   let legend;
   if (jsonData.issuedOn >= termsChangeCutoffDate2023) {
       if (isDuke) legend = NUS_TS_LEGEND_DUKE_2023;
-      else if (isYaleNUS) legend = NUS_TS_LEGEND_YALE_2023;
+      else if (isDegreeScroll ? (isYaleNUS && isYALENUSDegree) : isYaleNUS) legend = NUS_TS_LEGEND_YALE_2023;
       else if (jsonData.issuedOn >= newAppointmentCutoffDate2024) {
           legend = NUS_TS_LEGEND_2024;
       } else { legend = NUS_TS_LEGEND_2023; }
     } else {
         if (isDuke) legend = NUS_TS_LEGEND_DUKE;
-        else if (isYaleNUS) legend = NUS_TS_LEGEND_YALE;
+        else if (isDegreeScroll ? (isYaleNUS && isYALENUSDegree) : isYaleNUS) legend = NUS_TS_LEGEND_YALE;
         else legend = NUS_TS_LEGEND;
     }
-  const backImgUrl = `url(${isYaleNUS ? NUS_TS_BACKIMG_YALE : NUS_TS_BACKIMG})`;
+  const backImgUrl = `url(${(isDegreeScroll ? (isYaleNUS && isYALENUSDegree) : isYaleNUS) ? NUS_TS_BACKIMG_YALE : NUS_TS_BACKIMG})`;
   const backgroundImg = {
     backgroundImage: backImgUrl,
     backgroundSize: "1140px 806px", // width height
