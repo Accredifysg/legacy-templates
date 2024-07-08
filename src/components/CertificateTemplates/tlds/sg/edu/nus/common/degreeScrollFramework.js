@@ -348,9 +348,9 @@ const preprocHonours = (honours, degreeTitle) => {
 };
 
 // pre-process major - removal of trailing (Hons) or Hons, and capitalization
-const preprocMajor = (rawMajor, degreeCode) => {
-  // do not print major for Bachelor of Laws
-  if (degreeCode === "B071000") return "";
+const preprocMajor = (rawMajor, degreeCode, degreeTitle) => {
+  // do not print major for Bachelor of Laws, Bachelor of Pharmacy, and BACHELOR OF LANDSCAPE ARCHITECTURE
+  if (degreeCode === "B071000" || degreeCode === "B101300" || degreeTitle.toUpperCase() === "BACHELOR OF LANDSCAPE ARCHITECTURE") return "";
   let major = rawMajor
     ? `in ${capitalizedText(
         rawMajor.replace(/( \(HONS\)| HONS)$/i, "").toLowerCase()
@@ -567,7 +567,7 @@ export class DegreeScrollDataFeeder {
   // render degree title, honours (if any) and major (if any)
   get titleDisplay() {
     const honorsTitle = preprocHonours(this.dsHonours, this.dsDegreeTitle);
-    const majorTitle = preprocMajor(this.dsMajor, this.dsDegreeCode);
+    const majorTitle = preprocMajor(this.dsMajor, this.dsDegreeCode, this.dsDegreeTitle);
     let ignoreHonours = false;
     let ignoreMajor = false;
     let lastLine;
