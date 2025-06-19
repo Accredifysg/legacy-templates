@@ -89,7 +89,7 @@ const renderSigs = (dataSource, homeUnivIsNUS) => {
   );
   const sigName4 = (
     <td>
-      Principal &amp; President
+      Vice-Chancellor &amp; President
       <br />
       King&apos;s College London
     </td>
