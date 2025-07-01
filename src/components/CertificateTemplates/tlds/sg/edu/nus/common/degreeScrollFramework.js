@@ -240,6 +240,11 @@ const preprocDegree = degreeTitle => {
       "(Advanced Materials for",
       "Micro- and Nano- Systems)"
     ];
+    if (
+    degreeTitle.toUpperCase() ===
+    "Master of Design in Integrated Design".toUpperCase()
+  )
+    return ["Master of Design", "in Integrated Design"];  
   // Rule 2: graduate diplomas
   let name;
   let spec;
