@@ -6,6 +6,7 @@ import {
   renderVoid,
   renderImage,
   renderNUSSeal,
+  renderNUSSeal_2025,
   renderPrintWatermark,
   DUKE_SEAL,
   dateToWords
@@ -14,6 +15,8 @@ import scss from "./degree.scss";
 
 // construct class names
 const cls = names => sassClassNames(names, scss);
+// cut off date for using the new NUS seal
+const newNUSSeal_Effdt = "2025-07-31";
 
 class Degree extends Component {
   constructor(props) {
@@ -137,6 +140,7 @@ class Degree extends Component {
     let sig3;
     let sig4;
     let sig5;
+    const degreeData = dataSource.additionalData.degreeScroll[0];
     if (dataSource.additionalData.images) {
       sig1 = renderImage(
         dataSource.additionalData.images.DUKE_TRUSTEES,
@@ -228,7 +232,11 @@ class Degree extends Component {
           <tr>
             <td>{this.renderDUKESeal()}</td>
             <td />
-            <td>{renderNUSSeal(null, styleNUSSeal)}</td>
+            <td>
+              {(degreeData.dateConferred >= newNUSSeal_Effdt)
+                ? renderNUSSeal_2025(null, styleNUSSeal)
+                : renderNUSSeal(null, styleNUSSeal)}
+            </td>
           </tr>
         </tbody>
       </table>
