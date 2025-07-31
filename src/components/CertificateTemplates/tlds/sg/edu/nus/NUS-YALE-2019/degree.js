@@ -7,6 +7,7 @@ import {
   renderImage,
   renderVoid,
   renderNUSSeal,
+  renderNUSSeal_2025,
   renderPrintWatermark,
   NUS_YALENUS_LOGO
 } from "../common";
@@ -17,6 +18,8 @@ const cls = names => sassClassNames(names, scss);
 
 // cut off date for displaying "Past" due to closure of Yale-NUS college
 const YaleClosureCutoffDate2023 = "2025-07-01";
+// cut off date for using the new NUS seal
+const newNUSSeal_Effdt = "2025-07-31";
 
 let displayPast;
 
@@ -130,6 +133,7 @@ class Degree extends Component {
     let sig2;
     let sig3;
     let sig4;
+    const degreeData = this.dataSource.additionalData.degreeScroll[0];
     if (this.dataSource.additionalData.images) {
       sig1 = renderImage(
         this.dataSource.additionalData.images.TRUSTEES,
@@ -161,7 +165,11 @@ class Degree extends Component {
               {sig1}
               {/* NUS trustees */}
             </td>
-            <td rowSpan="5">{renderNUSSeal()}</td>
+            <td rowSpan="5">
+              {new Date(degreeData.dateConferred) >= new Date(newNUSSeal_Effdt)
+                ? renderNUSSeal_2025()
+                : renderNUSSeal()}
+            </td>
             <td>
               {sig3}
               {/* YNC gov board */}
