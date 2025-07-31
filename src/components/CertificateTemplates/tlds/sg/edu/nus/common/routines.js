@@ -3,6 +3,7 @@ import { tz } from "moment-timezone";
 import { toWordsOrdinal, toWords } from "number-to-words";
 import { NUS_LOGO } from "./imgNUSLogo";
 import { NUS_SEAL } from "./imgNUSSeal";
+import { NUS_SEAL_2025 } from "./imgNUSSeal_2025";
 
 export const TIMEZONE = "Asia/Singapore";
 
@@ -159,6 +160,10 @@ const defaultSealStyle = {
 // render NUS seal
 export const renderNUSSeal = (names, styles = defaultSealStyle) => (
   <img src={NUS_SEAL} className={names} style={styles} />
+);
+// render NUS seal wef 31 Jul 2025
+export const renderNUSSeal_2025 = (names, styles = defaultSealStyle) => (
+  <img src={NUS_SEAL_2025} className={names} style={styles} />
 );
 // render watermark upon printing for degree scroll
 export const renderPrintWatermark = (

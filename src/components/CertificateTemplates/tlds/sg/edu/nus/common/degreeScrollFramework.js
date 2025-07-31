@@ -12,12 +12,15 @@ import {
   renderNUSTitle,
   renderNUSLogo,
   renderNUSSeal,
+  renderNUSSeal_2025,
   renderPrintWatermark
 } from ".";
 import scss from "./degreeScrollFramework.scss";
 
 // construct class names
 const cls = names => sassClassNames(names, scss);
+// cut off date for using the new NUS seal
+const newNUSSeal_Effdt = "2025-07-31";
 
 // NUS name and logo used by default
 // not necessary to be exported
@@ -115,7 +118,7 @@ const renderNameAndText = (preNameText, name, postNameText, namePadding) => {
 };
 
 // default NUS signatures
-const renderDefaultSigs = (trusteesSig, presidentSig) => {
+const renderDefaultSigs = (trusteesSig, presidentSig, conferDate) => {
   const sig1 = renderImage(trusteesSig, 240, 90);
   const sig2 = renderImage(presidentSig, 240, 90);
   return (
@@ -123,7 +126,9 @@ const renderDefaultSigs = (trusteesSig, presidentSig) => {
       <tbody>
         <tr>
           <td rowSpan="2" width="50%" style={{ textAlign: "center" }}>
-            {renderNUSSeal()}
+            {new Date(conferDate) >= new Date(newNUSSeal_Effdt)
+              ? renderNUSSeal_2025()
+              : renderNUSSeal()}
           </td>
           <td width="50%" align="center">
             <div className={cls("cert-sig")}>
@@ -512,7 +517,7 @@ export class DegreeScrollDataFeeder {
 
   // use default sigantures
   useDefaultSignature(trusteesSig, presidentSig) {
-    this.dsSig = renderDefaultSigs(trusteesSig, presidentSig);
+    this.dsSig = renderDefaultSigs(trusteesSig, presidentSig, this.dsDate);
   }
 
   // setter: custom signature(s) with style

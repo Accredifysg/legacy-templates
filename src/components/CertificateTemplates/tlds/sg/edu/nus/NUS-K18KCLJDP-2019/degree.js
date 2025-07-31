@@ -8,11 +8,15 @@ import {
 } from "../common/degreeScrollFramework";
 import {
   renderNUSSeal,
+  renderNUSSeal_2025,
   renderImage,
   renderVoid,
   KCL_LOGO,
   KCL_SEAL
 } from "../common";
+
+// cut off date for using the new NUS seal
+const newNUSSeal_Effdt = "2025-07-31";
 
 // custom logos
 const renderLogos = homeUnivIsNUS => {
@@ -44,6 +48,7 @@ const renderKCLSeal = () => (
 
 // custom signatures and seals
 const renderSigs = (dataSource, homeUnivIsNUS) => {
+  const degreeData = dataSource.additionalData.degreeScroll[0];
   const styleSig = {
     display: "float",
     width: "100%",
@@ -98,8 +103,12 @@ const renderSigs = (dataSource, homeUnivIsNUS) => {
   const sigNameUpRight = homeUnivIsNUS ? sigName3 : sigName1;
   const sigNameBotLeft = homeUnivIsNUS ? sigName2 : sigName4;
   const sigNameBotRight = homeUnivIsNUS ? sigName4 : sigName2;
-  const sealLeft = homeUnivIsNUS ? renderNUSSeal() : renderKCLSeal();
-  const sealRight = homeUnivIsNUS ? renderKCLSeal() : renderNUSSeal();
+  // const sealLeft = homeUnivIsNUS ? renderNUSSeal() : renderKCLSeal();
+  // const sealRight = homeUnivIsNUS ? renderKCLSeal() : renderNUSSeal();
+  const isNewSeal = new Date(degreeData.dateConferred) >= new Date(newNUSSeal_Effdt);
+  const sealToRender = isNewSeal ? renderNUSSeal_2025 : renderNUSSeal;
+  const sealLeft = homeUnivIsNUS ? sealToRender() : renderKCLSeal();
+  const sealRight = homeUnivIsNUS ? renderKCLSeal() : sealToRender();
 
   const html = (
     <table style={styleSig}>

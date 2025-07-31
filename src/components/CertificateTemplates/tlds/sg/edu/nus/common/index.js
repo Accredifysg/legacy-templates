@@ -2,6 +2,7 @@ export * from "./routines";
 export { storeAddresses } from "./configure";
 export { NUS_LOGO } from "./imgNUSLogo";
 export { NUS_SEAL } from "./imgNUSSeal";
+export { NUS_SEAL_2025 } from "./imgNUSSeal_2025";
 export { NUS_CHN_NAME } from "./imgNUSChineseName";
 export { DUKE_LOGO } from "./imgDUKELogo";
 export { DUKE_SEAL } from "./imgDUKESeal";
