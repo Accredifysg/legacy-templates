@@ -9,10 +9,14 @@ import {
 import {
   renderImage,
   renderNUSSeal,
+  renderNUSSeal_2025,
   renderVoid,
   ANU_LOGO,
   ANU_SEAL
 } from "../common";
+
+// cut off date for using the new NUS seal
+const newNUSSeal_Effdt = "2025-07-31";
 
 // custom logos
 const renderLogos = () => {
@@ -90,6 +94,7 @@ const renderSigs = dataSource => {
   let sig2;
   let sig3;
   let sig4;
+  const degreeData = dataSource.additionalData.degreeScroll[0];
   if (dataSource.additionalData.images) {
     sig1 = renderImage(dataSource.additionalData.images.TRUSTEES, 240, 90);
     sig2 = renderImage(dataSource.additionalData.images.PRESIDENT, 240, 90);
@@ -152,7 +157,11 @@ const renderSigs = dataSource => {
           </tr>
           <tr>
             <td />
-            <td>{renderNUSSeal()}</td>
+             <td>
+              {(degreeData.dateConferred >= newNUSSeal_Effdt)
+                ? renderNUSSeal_2025()
+                : renderNUSSeal()}
+            </td>
             <td>
               <img src={ANU_SEAL} style={styleSeal} />;
             </td>
