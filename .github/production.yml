@@ -1,0 +1,22 @@
+name: Production
+on:
+  release:
+    types:
+      - released
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cd:
+    name: Deployment to Production
+    uses: ./.github/workflows/cd.yml
+    with:
+      environment-name: production
+      environment-url: https://legacyrenderer.accredify.io/
+      aws-region: ap-southeast-1
+    secrets:
+      GH_ACTIONS_ROLE_ARN: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
+      AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+      CLOUDFRONT_DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION }}

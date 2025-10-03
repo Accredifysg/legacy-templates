@@ -5,7 +5,7 @@ import { PrintWatermark } from "../src/utils/PrintWatermark";
 const FramelessViewerPage = () => (
   <div style={{ position: "relative" }}>
     <Head>
-      <title>OpenCerts - Frameless Certificate Viewer</title>
+      <title>Accredify Legacy Template Renderer</title>
     </Head>
     <PrintWatermark />
     <FramelessViewerPageContainer />
