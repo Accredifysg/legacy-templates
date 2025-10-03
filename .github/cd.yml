@@ -1,0 +1,83 @@
+name: Deployment
+
+on:
+  workflow_call:
+    inputs:
+      environment-name:
+        type: string
+        required: true
+      environment-url:
+        type: string
+        required: true
+      aws-region:
+        type: string
+        required: true
+    secrets:
+      GH_ACTIONS_ROLE_ARN:
+        required: true      
+      AWS_BUCKET:
+        required: true      
+      CLOUDFRONT_DISTRIBUTION:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    environment:
+      name: ${{ inputs.environment-name }}
+      url: ${{ inputs.environment-url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        id: creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.GH_ACTIONS_ROLE_ARN }} 
+          role-session-name: GithubActions
+          aws-region: ${{ inputs.aws-region }}
+          audience: sts.amazonaws.com
+          mask-aws-account-id: false
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: "10.x"
+          
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: node-modules-
+
+      - name: Install NPM packages
+        run: npm install
+
+      - name: Build
+        run: npm run deploy
+      
+      - name: list build result
+        run: |
+          ls -al out/      
+
+      - name: S3 Upload
+        run: |
+          aws s3 sync --no-progress --quiet ./out/ s3://$AWS_BUCKET/
+        env:
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+
+      - name: S3 Delete Old Deployment
+        run: |
+          aws s3 sync --no-progress --quiet --delete ./out/ s3://$AWS_BUCKET/
+        env:
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+      
+      - name: Invalidate CloudFront
+        run: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION --paths '/*'
+        env:
+          CLOUDFRONT_DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION }}
