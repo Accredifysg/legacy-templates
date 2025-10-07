@@ -114,10 +114,16 @@ class TranscriptProgram {
                 NON GRADUATING PROGRAMME
               </td>
             </tr>
+            <tr>
+              <td className={cls("ts-title prog-key")}>PROGRAMME STATUS:</td>
+              <td className={cls("ts-title")}>
+                {data.statusDescription.toUpperCase()}
+              </td>
+            </tr>
           </table>
         </td>
       );
-    else
+    else 
       this.dataFeeder.push(
         "ts-prog",
         <td colSpan="4">
