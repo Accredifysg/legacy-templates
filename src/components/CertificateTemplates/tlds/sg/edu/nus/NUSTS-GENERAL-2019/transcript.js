@@ -1,3 +1,6 @@
+/* eslint-disable spaced-comment */
+/* eslint-disable no-lonely-if */
+/* eslint-disable prettier/prettier */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
@@ -15,6 +18,7 @@ import {
   NUS_TS_LEGEND_YALE,
   NUS_TS_LEGEND_2023,
   NUS_TS_LEGEND_2024,
+  NUS_TS_LEGEND_2026,
   NUS_TS_LEGEND_DUKE_2023,
   NUS_TS_LEGEND_YALE_2023
 } from "../common";
@@ -39,6 +43,8 @@ const termsChangeCutoffDate2023 = "2023-08-01";
 
 // cut off date for updated UG/GD legend after new appointment
 const newAppointmentCutoffDate2024 = "2024-01-01";
+// effective date for new legend 2026
+const newLegend2026 = "2026-01-01";
 
 // flags to calssify transcript type
 let isUG;
@@ -110,7 +116,7 @@ class TranscriptProgram {
               <td width="30%" valign="top" className={cls("ts-title prog-key")}>
                 PROGRAMME:
               </td>
-              <td wdith="70%" valign="top" className={cls("ts-title")}>
+              <td width="70%" valign="top" className={cls("ts-title")}>
                 NON GRADUATING PROGRAMME
               </td>
             </tr>
@@ -132,7 +138,7 @@ class TranscriptProgram {
               <td width="30%" valign="top" className={cls("ts-title prog-key")}>
                 PROGRAMME:
               </td>
-              <td wdith="70%" valign="top" className={cls("ts-title")}>
+              <td width="70%" valign="top" className={cls("ts-title")}>
                 {data.programName.toUpperCase()}
                 <br />
                 {isDuke ? "DUKE-NUS MEDICAL SCHOOL" : null}
@@ -567,9 +573,10 @@ class TranscriptEnrollment {
 // render transcript summary
 class TranscriptSummary {
   // constructor
-  constructor(termData, dataFeeder) {
+  constructor(termData, dataFeeder, dataSource) {
     this.termData = termData;
     this.dataFeeder = dataFeeder;
+    this.dataSource = dataSource;
   }
 
   // main render
@@ -612,6 +619,7 @@ class TranscriptSummary {
     let gpaName;
     let gpa1;
     let gpaName1;
+        
     if (sumData.includeInGPA || isDuke) {
       if (sumData.disableGPA) {
         gpa = "NOT APPLICABLE";
@@ -1829,7 +1837,11 @@ const Template = ({ certificate }) => {
       if (isDuke) legend = NUS_TS_LEGEND_DUKE_2023;
       else if (isDegreeScroll ? (isYaleNUS && isYALENUSDegree) : isYaleNUS) legend = NUS_TS_LEGEND_YALE_2023;
       else if (jsonData.issuedOn >= newAppointmentCutoffDate2024) {
-          legend = NUS_TS_LEGEND_2024;
+          if (jsonData.issuedOn >= newLegend2026) {
+              legend = NUS_TS_LEGEND_2026;
+          } else {
+              legend = NUS_TS_LEGEND_2024;
+          }
       } else { legend = NUS_TS_LEGEND_2023; }
     } else {
         if (isDuke) legend = NUS_TS_LEGEND_DUKE;

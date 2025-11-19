@@ -29,5 +29,6 @@ export { NUS_TS_LEGEND_DUKE } from "./imgNUSTsLegendDuke";
 export { NUS_TS_LEGEND_YALE } from "./imgNUSTsLegendYale";
 export { NUS_TS_LEGEND_2023 } from "./imgNUSTsLegend_2023";
 export { NUS_TS_LEGEND_2024 } from "./imgNUSTsLegend_2024";
+export { NUS_TS_LEGEND_2026 } from "./imgNUSTsLegend_2026";
 export { NUS_TS_LEGEND_DUKE_2023 } from "./imgNUSTsLegendDuke_2023";
 export { NUS_TS_LEGEND_YALE_2023 } from "./imgNUSTsLegendYale_2023";
