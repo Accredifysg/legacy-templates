@@ -1,11 +1,3 @@
-/* eslint-disable spaced-comment */
-/* eslint-disable no-lonely-if */
-/* eslint-disable prettier/prettier */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-param-reassign */
-/* eslint no-use-before-define: ["error", { "classes": false }] */
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import {
@@ -573,10 +565,9 @@ class TranscriptEnrollment {
 // render transcript summary
 class TranscriptSummary {
   // constructor
-  constructor(termData, dataFeeder, dataSource) {
+  constructor(termData, dataFeeder) {
     this.termData = termData;
     this.dataFeeder = dataFeeder;
-    this.dataSource = dataSource;
   }
 
   // main render
