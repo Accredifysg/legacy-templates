@@ -36,7 +36,7 @@ const termsChangeCutoffDate2023 = "2023-08-01";
 // cut off date for updated UG/GD legend after new appointment
 const newAppointmentCutoffDate2024 = "2024-01-01";
 // effective date for new legend 2026
-const newLegend2026 = "2026-01-01";
+const newLegend2026 = "2025-11-01";
 
 // flags to calssify transcript type
 let isUG;
