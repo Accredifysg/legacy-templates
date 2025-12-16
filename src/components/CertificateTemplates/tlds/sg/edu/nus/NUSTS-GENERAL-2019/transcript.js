@@ -1753,7 +1753,7 @@ const Template = ({ certificate }) => {
   isOfficial = jsonData.additionalData.transcriptType.endsWith("OF");
   isConferred = !!jsonData.additionalData.degreeData;
   isRev2021 =
-    (isUG || isGD) &&
+    (isUG || isGD || isCDP) &&
     isOfficial &&
     isConferred &&
     jsonData.issuedOn >= revCutOffDate2021;
